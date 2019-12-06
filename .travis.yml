@@ -1,19 +1,10 @@
 language: python
 python:
   - "3.6"
-# https://nbconvert.readthedocs.io/en/latest/install.html
 addons:
   apt:
     update: true
     packages:
     - pandoc
-    - texlive-base
-    - texlive-latex-base
-    - texlive-latex-extra
-    - texlive-fonts-recommended
-    - texlive-fonts-extra
-    - texlive-xetex
-    - texlive-generic-recommended
-    - texlive-generic-extra
 script:
   - make test

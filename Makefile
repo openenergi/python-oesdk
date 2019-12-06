@@ -27,8 +27,9 @@ clean:
 		examples/*pdf
 	-pip uninstall -y oesdk
 
+# https://nbconvert.readthedocs.io/en/latest/install.html
 test: check install
-	jupyter nbconvert --to PDF --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
+	jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
 
 serve-nb: check install
 	jupyter lab --notebook-dir $(CURDIR)/examples/
