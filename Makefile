@@ -24,7 +24,8 @@ clean:
 	-rm -r \
 		examples/.ipynb_checkpoints \
 		examples/*html \
-		examples/*pdf
+		examples/*pdf \
+		examples/*md
 	-pip uninstall -y oesdk
 
 # https://nbconvert.readthedocs.io/en/latest/install.html
