@@ -1,7 +1,8 @@
 language: python
 python:
   - "3.6"
+# https://nbconvert.readthedocs.io/en/latest/install.html
 before_install:
-  - sudo apt-get -y install pandoc texlive-xetex texlive-fonts-recommended texlive-generic-recommended
+  - sudo apt-get -y install pandoc texlive-xetex texlive-fonts-recommended texlive-generic-recommended texlive-generic-extra
 script:
   - make test
