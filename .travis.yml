@@ -4,5 +4,6 @@ python:
 # https://nbconvert.readthedocs.io/en/latest/install.html
 before_install:
   - sudo apt-get -y install pandoc texlive-xetex texlive-fonts-recommended texlive-generic-recommended texlive-generic-extra
+  - sudo tlmgr install lm
 script:
   - make test
