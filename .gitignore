@@ -1,0 +1,9 @@
+*egg*
+dist/
+build/
+__pycache__/
+installed_files.txt
+.ipynb_checkpoints/
+*pdf
+examples/*.html
+reveal.js
