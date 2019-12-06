@@ -2,10 +2,18 @@ language: python
 python:
   - "3.6"
 # https://nbconvert.readthedocs.io/en/latest/install.html
-before_install:
-  - sudo apt-get -y install pandoc texlive-base texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
-  # - sudo apt-get -y install pandoc texlive-xetex texlive-fonts-recommended texlive-generic-recommended texlive-generic-extra
-  # - sudo tlmgr init-usertree
-  # - sudo tlmgr install lm
+addons:
+  apt:
+    update: true
+    packages:
+    - pandoc
+    - texlive-base
+    - texlive-latex-base
+    - texlive-latex-extra
+    - texlive-fonts-recommended
+    - texlive-fonts-extra
+    - texlive-xetex
+    - texlive-generic-recommended
+    - texlive-generic-extra
 script:
   - make test
