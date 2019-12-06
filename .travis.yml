@@ -2,6 +2,6 @@ language: python
 python:
   - "3.6"
 before_install:
-  - sudo apt-get -y install pandoc texlive-xetex
+  - sudo apt-get -y install pandoc texlive-latex-recommended
 script:
   - make test
