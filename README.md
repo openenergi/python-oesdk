@@ -1,6 +1,6 @@
 # OESDK
 
-[![Build Status](https://travis-ci.org/openenergi/python-oesdk.svg?branch=feature%2Ftravis-ci)](https://travis-ci.org/openenergi/python-oesdk)
+[![Build Status](https://travis-ci.org/openenergi/python-oesdk.svg?branch=master)](https://travis-ci.org/openenergi/python-oesdk)
 
 This is the Python SDK for the Open Energi API.
 
