@@ -1,0 +1,20 @@
+# credit: https://packaging.python.org/guides/supporting-windows-using-appveyor/
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python36-x64"
+      PYTHON_VERSION: "py36-x64"
+
+install:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "%PYTHON%\\python.exe -m pip install ."
+  - "%PYTHON%\\python.exe -m pip install jupyter nbconvert"
+
+build: off
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+  - ps: "ls C:\\Python*"
+
+test_script:
+  - "jupyter nbconvert --to markdown --execute %CD%\\examples\\SDK-sample-calls.ipynb"
