@@ -9,6 +9,8 @@ import requests
 import oesdk.auth
 import oesdk.time_helper
 
+MAX_LIMIT = 200000
+
 
 def map_variable_to_resampling_method(variable):
     if variable == 'n2ex-forecast':
@@ -42,8 +44,8 @@ class HistoricalApi():
         # find out the resampling method
         resampling = map_variable_to_resampling_method(variable)
         # build the URL for the API request
-        api_http_route = "{}timeseries/historical/readings/points/{}/resamplings/{}?entity={}&start={}&finish={}".format(
-            self.baseUrl, variable, resampling, entity_code, start, end)
+        api_http_route = "{}timeseries/historical/readings/points/{}/resamplings/{}?entity={}&start={}&finish={}&limit={}".format(
+            self.baseUrl, variable, resampling, entity_code, start, end, MAX_LIMIT)
         logging.info(
             "Retrieving resampled readings for entity code {}, variable {}, start time {}, end time {}".format(
                 entity_code,
