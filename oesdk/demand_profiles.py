@@ -39,7 +39,7 @@ class DemandApi():
             logging.warning(
                 "The HTTP response about the Energy Manager mode is: '{}'".format(
                     em_mode_http_response.content))
-            response.raise_for_status()
+            em_mode_http_response.raise_for_status()
             raise ValueError(
                 "The HTTP response code was not {}".format(
                     requests.codes.NO_CONTENT))
