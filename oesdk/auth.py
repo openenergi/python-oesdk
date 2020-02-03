@@ -23,7 +23,7 @@ class AuthApi():
             logging.warning(
                 "The HTTP response about the JWT is: '{}'".format(
                     token_resp.content))
-            response.raise_for_status()
+            token_resp.raise_for_status()
             raise ValueError(
                 "The HTTP response code was not {}".format(
                     requests.codes.OK))
