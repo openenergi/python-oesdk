@@ -8,5 +8,5 @@ setup(
         'requests>=2.22.0',
         'wheel',
     ],
-    python_requires='>=3.6',
+    python_requires='==3.6',
 )
