@@ -6,7 +6,10 @@ import pandas as pd
 
 
 def to_pd_timestamp_utc(in_datetime):
-    # pandas timestamp
+    # cast from date type to datetime type
+    if isinstance(in_datetime, datetime.date):
+        in_datetime = datetime.datetime.combine(in_datetime, datetime.datetime.min.time())
+    # pandas timestamp//
     is_pd_ts = isinstance(in_datetime, pd._libs.tslibs.timestamps.Timestamp)
     has_pd_ts_tz = is_pd_ts and in_datetime.tz is not None
     if is_pd_ts and has_pd_ts_tz:
