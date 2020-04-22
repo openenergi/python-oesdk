@@ -6,10 +6,15 @@ import pandas as pd
 
 
 def to_pd_timestamp_utc(in_datetime):
-    # cast from date type to datetime type
-    if isinstance(in_datetime, datetime.date):
-        in_datetime = datetime.datetime.combine(in_datetime, datetime.datetime.min.time())
-    # pandas timestamp//
+    '''
+    Convert from the following types to a Pandas UTC timestamp:
+
+    Pandas Timestamp
+    Python String
+    Python Date
+    Python Datetime
+    '''
+    # pandas timestamp type
     is_pd_ts = isinstance(in_datetime, pd._libs.tslibs.timestamps.Timestamp)
     has_pd_ts_tz = is_pd_ts and in_datetime.tz is not None
     if is_pd_ts and has_pd_ts_tz:
@@ -18,6 +23,9 @@ def to_pd_timestamp_utc(in_datetime):
         return in_datetime.tz_localize('UTC')
     # string type
     if isinstance(in_datetime, str):
+        return pd.Timestamp(in_datetime, tz='UTC')
+    # date type
+    if isinstance(in_datetime, datetime.date):
         return pd.Timestamp(in_datetime, tz='UTC')
     # datetime type
     is_datetime = isinstance(in_datetime, datetime.datetime)
