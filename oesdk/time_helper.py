@@ -24,11 +24,12 @@ def to_pd_timestamp_utc(in_datetime):
     # string type
     if isinstance(in_datetime, str):
         return pd.Timestamp(in_datetime, tz='UTC')
+    is_datetime = isinstance(in_datetime, datetime.datetime)
+    is_date = isinstance(in_datetime, datetime.date)
     # date type
-    if isinstance(in_datetime, datetime.date):
+    if is_date and not is_datetime:
         return pd.Timestamp(in_datetime, tz='UTC')
     # datetime type
-    is_datetime = isinstance(in_datetime, datetime.datetime)
     has_datetime_tz = in_datetime.tzname() is not None
     if is_datetime and has_datetime_tz:
         return pd.Timestamp(in_datetime).tz_convert('UTC')
@@ -92,7 +93,7 @@ def utc_to_settlement_period(timestamp):
     if timestamp is None:
         timestamp = datetime.datetime.utcnow()
     # Get timestamp in correct format
-    tUtc = pd.Timestamp(timestamp, tz='UTC')
+    tUtc = to_pd_timestamp_utc(timestamp)
     # Convert timezone to BST
     tLocal = tUtc.tz_convert('Europe/London')
     # Work out when last midnight local time was

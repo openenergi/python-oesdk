@@ -4,7 +4,7 @@ setup(
     name='oesdk',
     packages=find_packages(),
     install_requires=[
-        'pandas==0.25.3',
+        'pandas==1.1.0',
         'requests==2.22.0',
         'wheel',
     ],
