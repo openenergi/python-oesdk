@@ -23,7 +23,7 @@ class SignalApi:
             load_code,
             signal_type="variable-adjust"):
         message = build_signal_body(
-            df, load_code, signal_type="variable-adjust")
+            df, load_code, signal_type=signal_type)
         response = requests.post(
             self.baseUrl + 'signals',
             headers=self.auth.HttpHeaders,
