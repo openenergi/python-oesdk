@@ -2,8 +2,8 @@
 
 environment:
   matrix:
-    - PYTHON: "C:\\Python39-x64"
-      PYTHON_VERSION: "py39-x64"
+    - PYTHON: "C:\\Python38-x64"
+      PYTHON_VERSION: "py38-x64"
 
 install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
