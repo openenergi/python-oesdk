@@ -12,7 +12,7 @@ class SignalApi:
             username,
             password,
             base_url='https://api.openenergi.net/v1/'):
-        self.auth = oesdk.auth.AuthApi(username, password)
+        self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
 
