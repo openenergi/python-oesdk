@@ -1,12 +1,12 @@
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 setup(
-    name='oesdk',
+    name="oesdk",
     packages=find_packages(),
     install_requires=[
-        'pandas==1.2.3',
-        'requests==2.25.1',
-        'wheel',
+        "pandas==1.2.3",
+        "requests==2.25.1",
+        "wheel",
     ],
-    python_requires='==3.8.*',
+    python_requires="==3.8.*",
 )
