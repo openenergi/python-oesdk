@@ -22,7 +22,9 @@ class AuthApi:
             )
             token_resp.raise_for_status()
             raise ValueError(
-                "The HTTP response code was not {}".format(requests.codes.OK)
+                "The HTTP response code was not {}".format(
+                    requests.codes.OK  # pylint: disable=no-member
+                )
             )
         token = token_resp.json()["token"]
         return token
