@@ -1,9 +1,10 @@
 import requests
 import oesdk.auth
+from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
 
 
 class EntityApi:
-    def __init__(self, username, password, base_url="https://api.openenergi.net/v1/"):
+    def __init__(self, username, password, base_url=OE_API_URL):
         self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
@@ -12,6 +13,7 @@ class EntityApi:
         entity_response = requests.get(
             "{}entities/{}?expand_tags=true".format(self.baseUrl, entityCode),
             headers=self.auth.HttpHeaders,
+            timeout=REQUESTS_TIMEOUT,
         )
         entity_details_dict = entity_response.json()
         return entity_details_dict

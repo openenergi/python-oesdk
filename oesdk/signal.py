@@ -1,10 +1,11 @@
 import pandas as pd
 import requests
 import oesdk.auth
+from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
 
 
 class SignalApi:
-    def __init__(self, username, password, base_url="https://api.openenergi.net/v1/"):
+    def __init__(self, username, password, base_url=OE_API_URL):
         self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
@@ -15,6 +16,7 @@ class SignalApi:
             self.baseUrl + "signals",
             headers=self.auth.HttpHeaders,
             json=message,
+            timeout=REQUESTS_TIMEOUT,
         )
         if response.status_code != requests.codes.accepted:
             response.raise_for_status()

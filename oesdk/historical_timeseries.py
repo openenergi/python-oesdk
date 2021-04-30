@@ -6,8 +6,7 @@ import pandas as pd
 import requests
 import oesdk.auth
 import oesdk.time_helper
-
-MAX_LIMIT = 200000
+from oesdk.constants import READINGS_LIMIT, REQUESTS_TIMEOUT, OE_API_URL
 
 
 def map_variable_to_resampling_method(variable):
@@ -21,7 +20,7 @@ def map_variable_to_resampling_method(variable):
 
 
 class HistoricalApi:
-    def __init__(self, username, password, base_url="https://api.openenergi.net/v1/"):
+    def __init__(self, username, password, base_url=OE_API_URL):
         self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
@@ -34,14 +33,16 @@ class HistoricalApi:
         resampling = map_variable_to_resampling_method(variable)
         # build the URL for the API request
         api_http_route = "{}timeseries/historical/readings/points/{}/resamplings/{}?entity={}&start={}&finish={}&limit={}".format(
-            self.baseUrl, variable, resampling, entity_code, start, end, MAX_LIMIT
+            self.baseUrl, variable, resampling, entity_code, start, end, READINGS_LIMIT
         )
         logging.info(
             "Retrieving resampled readings for entity code {}, variable {}, start time {}, end time {}".format(
                 entity_code, variable, start, end
             )
         )
-        res = requests.get(api_http_route, headers=self.auth.HttpHeaders)
+        res = requests.get(
+            api_http_route, headers=self.auth.HttpHeaders, timeout=REQUESTS_TIMEOUT
+        )
         if res.status_code != requests.codes.OK:
             logging.warning(
                 "The HTTP response about the retrieval of resampled readings is: '{}'".format(
@@ -50,7 +51,9 @@ class HistoricalApi:
             )
             res.raise_for_status()
             raise ValueError(
-                "The HTTP response code was not {}".format(requests.codes.OK)
+                "The HTTP response code was not {}".format(
+                    requests.codes.OK  # pylint: disable=no-member
+                )
             )
         # print(res.json())
         df = pd.DataFrame.from_dict(res.json()["items"])
@@ -86,7 +89,9 @@ class HistoricalApi:
         if wait_before_request > 0:
             time.sleep(wait_before_request)
 
-        res = requests.get(api_http_route, headers=self.auth.HttpHeaders)
+        res = requests.get(
+            api_http_route, headers=self.auth.HttpHeaders, timeout=REQUESTS_TIMEOUT
+        )
 
         if res.status_code != requests.codes.OK:
             logging.warning(
@@ -96,7 +101,9 @@ class HistoricalApi:
             )
             res.raise_for_status()
             raise ValueError(
-                "The HTTP response code was not {}".format(requests.codes.OK)
+                "The HTTP response code was not {}".format(
+                    requests.codes.OK  # pylint: disable=no-member
+                )
             )
         df = pd.DataFrame.from_dict(res.json()["items"])
 

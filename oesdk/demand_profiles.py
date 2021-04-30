@@ -5,10 +5,11 @@ import pandas as pd
 import requests
 import oesdk.auth
 import oesdk.time_helper
+from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
 
 
 class DemandApi:
-    def __init__(self, username, password, base_url="https://api.openenergi.net/v1/"):
+    def __init__(self, username, password, base_url=OE_API_URL):
         self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
@@ -37,7 +38,9 @@ class DemandApi:
             )
             em_mode_http_response.raise_for_status()
             raise ValueError(
-                "The HTTP response code was not {}".format(requests.codes.NO_CONTENT)
+                "The HTTP response code was not {}".format(
+                    requests.codes.NO_CONTENT  # pylint: disable=no-member
+                )
             )
 
         profile_response = requests.patch(
@@ -125,6 +128,7 @@ class DemandApi:
                 self.baseUrl, load_code, profileType, target_date
             ),
             headers=self.auth.HttpHeaders,
+            timeout=REQUESTS_TIMEOUT,
         )
         # parse the JSON string
         dict_data = json.loads(res.text)

@@ -1,9 +1,10 @@
 import logging
 import requests
+from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
 
 
 class AuthApi:
-    def __init__(self, username, password, base_url="https://api.openenergi.net/v1/"):
+    def __init__(self, username, password, base_url=OE_API_URL):
         logging.basicConfig()
         self.username = username
         self.password = password
@@ -13,6 +14,7 @@ class AuthApi:
         token_resp = requests.post(
             "{}auth".format(self.baseUrl),
             json={"username": self.username, "password": self.password},
+            timeout=REQUESTS_TIMEOUT,
         )
         if token_resp.status_code != requests.codes.OK:
             logging.warning(
