@@ -2,6 +2,7 @@ import pandas as pd
 import requests
 import oesdk.auth
 from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
+from oesdk.time_helper import to_iso_ts_zulu
 
 
 class SignalApi:
@@ -34,7 +35,9 @@ def build_signal_body(df, load_code, signal_type="variable-adjust"):
         values = []
         for col in df.columns:
             values.append({"variable": col, "value": float(row[col])})
-        content_list.append({"start_at": time.isoformat(), "values": values})
+        content_list.append(
+            {"start_at": to_iso_ts_zulu(time.isoformat()), "values": values}
+        )
     # build the signal body (to be sent as JSON)
     signal_body = {
         "target": {"entity": load_code},
