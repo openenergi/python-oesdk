@@ -28,6 +28,9 @@ clean:
 		examples/*md
 	-pip uninstall -y oesdk
 
+nb-markdown:
+	jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
+
 test: check install
 	python -m unittest discover -s tests -v
 

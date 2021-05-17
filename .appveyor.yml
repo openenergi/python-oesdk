@@ -17,4 +17,5 @@ init:
   - ps: "ls C:\\Python*"
 
 test_script:
-  - "jupyter nbconvert --to markdown --execute %CD%\\examples\\SDK-sample-calls.ipynb"
+  - "python -m unittest discover -s tests -v"
+  - "jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb"
