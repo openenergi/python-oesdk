@@ -12,29 +12,29 @@ class TestOesdk(unittest.TestCase):
         cls.password = os.environ["OE_PASSWORD"]
         cls.entity_code = "l4662"
 
-    def test_entity_api(cls):
-        entity_api = oesdk.entity.EntityApi(cls.username, cls.password)
-        entity_dict = entity_api.entityDetailsAsDict(cls.entity_code)
+    def test_entity_api(self):
+        entity_api = oesdk.entity.EntityApi(self.username, self.password)
+        entity_dict = entity_api.entityDetailsAsDict(self.entity_code)
         assert entity_dict["code"] == "l4662"
 
-        entity_hierarchy_dict = entity_api.explainHierarchy(cls.entity_code)
+        entity_hierarchy_dict = entity_api.explainHierarchy(self.entity_code)
         assert entity_hierarchy_dict["EntityName"] == "SDK dummy load"
 
-    def test_demand_api(cls):
-        demand_api = oesdk.demand_profiles.DemandApi(cls.username, cls.password)
+    def test_demand_api(self):
+        demand_api = oesdk.demand_profiles.DemandApi(self.username, self.password)
         target_date = datetime.datetime(2019, 12, 1).strftime("%Y-%m-%d")
-        active_profile_df = demand_api.getActiveProfile(cls.entity_code, target_date)
+        active_profile_df = demand_api.getActiveProfile(self.entity_code, target_date)
         assert len(active_profile_df) >= 0 and len(active_profile_df) <= 48
 
         iso_weekday_id = datetime.datetime(2019, 12, 1).isoweekday()
         default_profile_df = demand_api.getDefaultProfile(
-            cls.entity_code, iso_weekday_id
+            self.entity_code, iso_weekday_id
         )
         assert len(default_profile_df) >= 0 and len(default_profile_df) <= 48
 
-    def test_historical_api(cls):
+    def test_historical_api(self):
         historical_api = oesdk.historical_timeseries.HistoricalApi(
-            cls.username, cls.password
+            self.username, self.password
         )
         power_variable = "active-power"
 
@@ -42,7 +42,7 @@ class TestOesdk(unittest.TestCase):
             "2019-12-01 10:00:00",
             Timestamp("2019-12-01 12:00:00"),
             variable=power_variable,
-            entity_code=cls.entity_code,
+            entity_code=self.entity_code,
         )
         assert len(raw_readings_df) == 3
 
@@ -50,6 +50,6 @@ class TestOesdk(unittest.TestCase):
             "2019-12-01 15",
             "2019-12-01 16:01",
             variable=power_variable,
-            entity_code=cls.entity_code,
+            entity_code=self.entity_code,
         )
         assert len(resampled_readings_df) == 3
