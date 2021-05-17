@@ -1,7 +1,7 @@
 import unittest
-import oesdk
 import os
 import datetime
+import oesdk
 from pandas import Timestamp
 
 
