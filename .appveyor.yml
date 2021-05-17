@@ -18,4 +18,4 @@ init:
 
 test_script:
   - "python -m unittest discover -s tests -v"
-  - "jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb"
+  - "jupyter nbconvert --to markdown --execute %CD%\\examples\\SDK-sample-calls.ipynb"
