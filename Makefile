@@ -28,9 +28,8 @@ clean:
 		examples/*md
 	-pip uninstall -y oesdk
 
-# https://nbconvert.readthedocs.io/en/latest/install.html
 test: check install
-	jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
+	python -m unittest discover -s tests -v
 
 serve-nb: check install
 	jupyter lab --notebook-dir $(CURDIR)/examples/

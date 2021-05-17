@@ -140,7 +140,7 @@ class DemandApi:
             logging.warning(dict_data["message"])
             return None
         # de-normalise the JSON (nested lists) into a redundant dataframe
-        df_profiles = pd.io.json.json_normalize(
+        df_profiles = pd.json_normalize(
             data=dict_data,
             record_path=["metrics", "shape"],
             meta=meta_columns,
