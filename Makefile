@@ -34,7 +34,7 @@ clean:
 nb-markdown:
 	jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
 
-test: check install
+test: check
 	python -m unittest discover -s tests -v
 
 serve-nb: check install
