@@ -1,3 +1,4 @@
+# pytype: disable=attribute-error
 import datetime
 import logging
 import math

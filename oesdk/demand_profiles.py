@@ -3,14 +3,14 @@ import json
 import logging
 import pandas as pd
 import requests
-import oesdk.auth
-import oesdk.time_helper
+from oesdk.time_helper import utc_to_settlement_period
+from oesdk.auth import AuthApi
 from oesdk.constants import REQUESTS_TIMEOUT, OE_API_URL
 
 
 class DemandApi:
     def __init__(self, username, password, base_url=OE_API_URL):
-        self.auth = oesdk.auth.AuthApi(username, password, base_url)
+        self.auth = AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
 
@@ -164,7 +164,7 @@ class DemandApi:
                 axis=1,
             )
             df_pivot["SettlementPeriod"] = df_pivot["Timestamp"].apply(
-                lambda x: oesdk.time_helper.utc_to_settlement_period(x)[0]
+                lambda x: utc_to_settlement_period(x)[0]
             )
 
         return df_pivot

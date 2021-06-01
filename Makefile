@@ -12,9 +12,12 @@ install: clean
 	pip install --editable . -vv
 	pip install jupyter nbconvert
 
-lint:
-	autopep8 --in-place --aggressive --aggressive setup.py
-	autopep8 --in-place --aggressive --aggressive -r oesdk
+format:
+	black oesdk
+
+lint-errors:
+	flake8 --ignore=E501,W503,W504, oesdk tests*
+	pytype --keep-going --jobs 6 oesdk/
 
 clean:
 	-find . \
@@ -31,7 +34,7 @@ clean:
 nb-markdown:
 	jupyter nbconvert --to markdown --execute $(CURDIR)/examples/SDK-sample-calls.ipynb
 
-test: check install
+test: check
 	python -m unittest discover -s tests -v
 
 serve-nb: check install
