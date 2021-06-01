@@ -1,7 +1,9 @@
 import unittest
 import os
 import datetime
-import oesdk
+from oesdk.demand_profiles import DemandApi
+from oesdk.entity import EntityApi
+from oesdk.historical_timeseries import HistoricalApi
 from pandas import Timestamp
 
 
@@ -13,7 +15,7 @@ class TestOesdk(unittest.TestCase):
         cls.entity_code = "l4662"
 
     def test_entity_api(self):
-        entity_api = oesdk.entity.EntityApi(self.username, self.password)
+        entity_api = EntityApi(self.username, self.password)
         entity_dict = entity_api.entityDetailsAsDict(self.entity_code)
         assert entity_dict["code"] == "l4662"
 
@@ -21,7 +23,7 @@ class TestOesdk(unittest.TestCase):
         assert entity_hierarchy_dict["EntityName"] == "SDK dummy load"
 
     def test_demand_api(self):
-        demand_api = oesdk.demand_profiles.DemandApi(self.username, self.password)
+        demand_api = DemandApi(self.username, self.password)
         target_date = datetime.datetime(2019, 12, 1).strftime("%Y-%m-%d")
         active_profile_df = demand_api.getActiveProfile(self.entity_code, target_date)
         assert len(active_profile_df) >= 0 and len(active_profile_df) <= 48
@@ -33,9 +35,7 @@ class TestOesdk(unittest.TestCase):
         assert len(default_profile_df) >= 0 and len(default_profile_df) <= 48
 
     def test_historical_api(self):
-        historical_api = oesdk.historical_timeseries.HistoricalApi(
-            self.username, self.password
-        )
+        historical_api = HistoricalApi(self.username, self.password)
         power_variable = "active-power"
 
         raw_readings_df = historical_api.getRawReadings(
