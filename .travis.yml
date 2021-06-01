@@ -5,6 +5,10 @@ addons:
   apt:
     update: true
     packages:
-    - pandoc
+      - pandoc
+install:
+  - pip install pytype==2021.3.10
+  - pip install flake8==3.9.2
 script:
+  - make lint-errors
   - make test nb-markdown
