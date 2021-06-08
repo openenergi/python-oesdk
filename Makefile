@@ -17,7 +17,8 @@ format:
 
 lint-errors:
 	flake8 --ignore=E501,W503,W504, oesdk tests*
-	pytype --keep-going --jobs 6 oesdk/
+	pytype --keep-going --jobs 6 oesdk
+	pylint --disable=R,C,W,E1101,I1101 oesdk
 
 clean:
 	-find . \
