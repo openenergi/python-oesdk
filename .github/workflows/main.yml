@@ -1,0 +1,23 @@
+
+name: Open Energi SDK for Python
+
+# only manual for now
+on: [workflow_dispatch]
+
+env:
+  CONF_ENV: test
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8.x' # see setup.py
+    - name: Install Pandoc
+      run: sudo apt-get install -y pandoc
+    - name: Install some test/lint context with pip
+      run: pip install pytype==2021.3.10 flake8==3.9.2 pylint==2.8.2
+    - name: Run the SDK pipeline
+      run: make install lint-errors test nb-markdown
