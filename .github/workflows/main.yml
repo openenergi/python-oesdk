@@ -10,9 +10,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-env:
-  CONF_ENV: test
-
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -25,5 +22,9 @@ jobs:
         run: sudo apt-get install -y pandoc
       - name: Install some test/lint context with pip
         run: pip install pytype==2021.3.10 flake8==3.9.2 pylint==2.8.2
-      - name: Run the SDK pipeline
-        run: make install lint-errors test nb-markdown
+      - name: Install the SDK
+        run: make install
+      - name: Lint the source code
+        run: make lint-errors
+      - name: Run the tests and notebook
+        run: make test nb-markdown
