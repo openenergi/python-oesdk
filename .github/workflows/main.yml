@@ -27,4 +27,7 @@ jobs:
       - name: Lint the source code
         run: make lint-errors
       - name: Run the tests and notebook
+        env:
+          OE_USERNAME: ${{ secrets.OE_USERNAME }}
+          OE_PASSWORD: ${{ secrets.OE_PASSWORD }}
         run: make test nb-markdown
