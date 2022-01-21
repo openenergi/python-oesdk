@@ -47,9 +47,10 @@ class TestOesdk(unittest.TestCase):
         assert len(raw_readings_df) == 32
 
         resampled_readings_df = historical_api.getResampledReadings(
-            "2019-12-01 15",
+            "2019-12-01 15:00",
             "2019-12-01 16:01",
             variable=power_variable,
             entity_code=self.entity_code,
+            resampling="30m-compliance"
         )
         assert len(resampled_readings_df) == 3
