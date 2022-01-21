@@ -9,28 +9,17 @@ import oesdk.time_helper
 from oesdk.constants import READINGS_LIMIT, REQUESTS_TIMEOUT, OE_API_URL
 
 
-def map_variable_to_resampling_method(variable):
-    if variable == "n2ex-forecast":
-        resampling = "1h"
-    elif variable == "baseline-forecast":
-        resampling = "30m"
-    else:  # active-power, avail, resp etc
-        resampling = "30m-compliance"
-    return resampling
-
-
 class HistoricalApi:
     def __init__(self, username, password, base_url=OE_API_URL):
         self.auth = oesdk.auth.AuthApi(username, password, base_url)
         self.auth.refreshJWT()
         self.baseUrl = base_url
 
-    def getResampledReadings(self, start, end, variable, entity_code):
+    def getResampledReadings(self, start, end, variable, entity_code, resampling="30m"):
         # validate dates...
         start = oesdk.time_helper.to_iso_ts_zulu(start)
         end = oesdk.time_helper.to_iso_ts_zulu(end)
-        # find out the resampling method
-        resampling = map_variable_to_resampling_method(variable)
+
         # build the URL for the API request
         api_http_route = "{}timeseries/historical/readings/points/{}/resamplings/{}?entity={}&start={}&finish={}&limit={}".format(
             self.baseUrl, variable, resampling, entity_code, start, end, READINGS_LIMIT

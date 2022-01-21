@@ -51,5 +51,6 @@ class TestOesdk(unittest.TestCase):
             "2019-12-01 16:01",
             variable=power_variable,
             entity_code=self.entity_code,
+            resampling="30m-compliance"
         )
         assert len(resampled_readings_df) == 3
