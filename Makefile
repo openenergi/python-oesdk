@@ -9,6 +9,7 @@ ifndef OE_PASSWORD
 endif
 
 install: clean
+	pip install --upgrade pip
 	pip install --editable . -vv
 	pip install jupyter nbconvert
 
