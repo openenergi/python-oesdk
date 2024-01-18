@@ -10,7 +10,7 @@ endif
 
 install: clean
 	pip install --upgrade pip
-	pip install --editable . -vv
+	pip install --editable .
 	pip install jupyter nbconvert
 
 format:
