@@ -5,7 +5,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "pandas==1.3.2",
-        "requests==2.31.0",
+        "requests==2.32.0",
         "wheel",
     ],
 )
