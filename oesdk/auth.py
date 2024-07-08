@@ -14,6 +14,7 @@ class AuthApi:
         token_resp = requests.post(
             "{}auth".format(self.baseUrl),
             json={"username": self.username, "password": self.password},
+            headers={"Content-Type": "application/json"},
             timeout=REQUESTS_TIMEOUT,
         )
         if token_resp.status_code != requests.codes.OK:
