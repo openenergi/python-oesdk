@@ -1,11 +1,11 @@
 REVEAL_JS=$(CURDIR)/examples/reveal.js
 
 check:
-ifndef OE_USERNAME
-	$(error OE_USERNAME IS UNDEFINED)
+ifndef BP_USERNAME
+	$(error BP_USERNAME IS UNDEFINED)
 endif
-ifndef OE_PASSWORD
-	$(error OE_PASSWORD IS UNDEFINED)
+ifndef BP_PASSWORD
+	$(error BP_PASSWORD IS UNDEFINED)
 endif
 
 install: clean
