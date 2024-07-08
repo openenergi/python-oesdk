@@ -10,8 +10,8 @@ from pandas import Timestamp
 class TestOesdk(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.username = os.environ["OE_USERNAME"]
-        cls.password = os.environ["OE_PASSWORD"]
+        cls.username = os.environ["BP_USERNAME"]
+        cls.password = os.environ["BP_PASSWORD"]
         cls.entity_code = "L2510"
 
     def test_entity_api(self):
